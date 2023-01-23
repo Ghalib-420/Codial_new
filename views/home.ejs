@@ -11,15 +11,14 @@
     <input type="submit" value="Post" />
   </form>
 
-  <div>
+  <div class="posts">
     <ul>
-      <%for(var i of post){ %>
+      <% for(post of posts){ %>
       <li>
-        <p id="content"><%=i.content %></p>
-        <div id="details">
-          <label id="user"><%=i.updatedAt%></label>
-          <label id="date"><%=i.createdAt %></label>
-        </div>
+        <p id="content"><%=post.content %></p>
+
+        <label id="date"><%=post.user.name %></label>
+        <label id="user"><%=post.updatedAt%></label>
       </li>
       <% } %>
     </ul>

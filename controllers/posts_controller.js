@@ -12,7 +12,7 @@ module.exports.createPost = function (req, res) {
           console.log("Error in creating Post in db");
           return res.redirect("back");
         }
-        console.log(post);
+        // console.log(post);
         return res.redirect("/");
       }
     );
