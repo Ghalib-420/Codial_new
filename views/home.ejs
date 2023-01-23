@@ -19,6 +19,10 @@
 
         <label id="date"><%=post.user.name %></label>
         <label id="user"><%=post.updatedAt%></label>
+        <form action="/comment/create/?id=<%=post._id %>" method="POST">
+          <input id="cmt" name="content" />
+          <input type="submit" value="post" />
+        </form>
       </li>
       <% } %>
     </ul>

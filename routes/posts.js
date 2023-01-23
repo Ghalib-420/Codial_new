@@ -8,4 +8,5 @@ router.post(
   //   passport.checkAuthentication,
   postsController.createPost
 );
+
 module.exports = router;
