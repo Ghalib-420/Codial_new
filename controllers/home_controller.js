@@ -1,6 +1,6 @@
 const { populate } = require("../models/post");
 const Post = require("../models/post");
-const Comment = require("../models/comment");
+// const Comment = require("../models/comment");
 
 module.exports.home = function (req, res) {
   // Post.find({}, function (err, posts) {
