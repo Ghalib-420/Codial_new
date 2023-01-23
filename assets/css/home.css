@@ -1,0 +1,10 @@
+.posts {
+  justify-content: center;
+}
+
+.posts ul {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

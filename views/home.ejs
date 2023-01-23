@@ -10,4 +10,18 @@
       placeholder="Type here ..."></textarea>
     <input type="submit" value="Post" />
   </form>
+
+  <div>
+    <ul>
+      <%for(var i of post){ %>
+      <li>
+        <p id="content"><%=i.content %></p>
+        <div id="details">
+          <label id="user"><%=i.updatedAt%></label>
+          <label id="date"><%=i.createdAt %></label>
+        </div>
+      </li>
+      <% } %>
+    </ul>
+  </div>
 </section>
