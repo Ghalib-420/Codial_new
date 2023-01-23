@@ -3,7 +3,6 @@ const router = express.Router();
 const passport = require("passport");
 
 const usersController = require("../controllers/users_controller");
-const postsController = require("../controllers/posts_controller");
 
 router.get("/profile", passport.checkAuthentication, usersController.profile);
 
@@ -18,7 +17,6 @@ router.post(
   passport.authenticate("local", { failureRedirect: "/users/sign-in" }),
   usersController.createSession
 );
-router.post("/create-post", postsController.createPost);
 
 router.get("/sign-out", usersController.destroySession);
 
