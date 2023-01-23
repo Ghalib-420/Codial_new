@@ -7,7 +7,8 @@
       name="content"
       cols="30"
       rows="3"
-      placeholder="Type here ..."></textarea>
+      placeholder="Type here ..."
+      required></textarea>
     <input type="submit" value="Post" />
   </form>
 
@@ -15,14 +16,36 @@
     <ul>
       <% for(post of posts){ %>
       <li>
-        <p id="content"><%=post.content %></p>
+        <p id="content">
+          <% if(locals.user && locals.user.id == post.user.id){ %>
+          <small>
+            <a href="/post/destroy/<%= post.id %>">X </a>
+          </small>
 
-        <label id="date"><%=post.user.name %></label>
-        <label id="user"><%=post.updatedAt%></label>
-        <form action="/comment/create/?id=<%=post._id %>" method="POST">
-          <input id="cmt" name="content" />
-          <input type="submit" value="post" />
-        </form>
+          <% } %> <%=post.content %><br />
+          <small id="date"><%=post.user.name %></small>
+        </p>
+
+        <div class="post-comment">
+          <form
+            action="/comment/create/?id=<%=post._id %>"
+            method="POST"
+            required>
+            <input id="cmt" name="content" />
+            <input type="submit" value="post" />
+          </form>
+        </div>
+        <div class="post-comment-list">
+          <ul id="post-comment-<%=post._id %>">
+            <% for(comment of post.comments){ %>
+
+            <p><%= comment.content %></p>
+            <br />
+            <small> <%= comment.user.name %> </small>
+
+            <% } %>
+          </ul>
+        </div>
       </li>
       <% } %>
     </ul>

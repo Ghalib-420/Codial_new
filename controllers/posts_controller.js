@@ -1,4 +1,5 @@
 const Post = require("../models/post");
+const Comment = require("../models/comment");
 
 module.exports.createPost = function (req, res) {
   if (req.isAuthenticated()) {
@@ -19,4 +20,19 @@ module.exports.createPost = function (req, res) {
   } else {
     return res.redirect("/users/sign-in");
   }
+};
+module.exports.destroy = function (req, res) {
+  Post.findById(req.params.id, function (err, post) {
+    // .id means converting the object id into string
+    if (post.user == req.user.id) {
+      post.remove();
+
+      Comment.deleteMany({ post: req.params.id }, function (err) {
+        //TODO error handeling
+        return res.redirect("back");
+      });
+    } else {
+      return res.redirect("back");
+    }
+  });
 };
