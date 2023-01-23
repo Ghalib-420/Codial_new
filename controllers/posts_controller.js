@@ -16,5 +16,7 @@ module.exports.createPost = function (req, res) {
         return res.redirect("/");
       }
     );
+  } else {
+    return res.redirect("/users/sign-in");
   }
 };
