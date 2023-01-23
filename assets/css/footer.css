@@ -1,0 +1,23 @@
+#main {
+  background-color: rgb(71, 67, 67);
+  height: 12vh;
+  display: flex;
+  flex-direction: row;
+  justify-self: baseline;
+}
+#menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  margin-left: 15px;
+  margin-top: 20px;
+}
+#menu a {
+  color: rgb(236, 225, 225);
+  text-decoration: none;
+  margin: 4px;
+}
+p {
+  margin-top: 8vh;
+  justify-self: start;
+}
