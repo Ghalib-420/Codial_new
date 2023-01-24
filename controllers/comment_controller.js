@@ -12,14 +12,17 @@ module.exports.createComment = async function (req, res) {
           user: req.user._id,
           post: req.query.id,
         });
+
         post.comments.push(cmt);
         post.save();
+        req.flash("success", "Posted");
         return res.redirect("/");
       } else {
         console.log("Error in finding the post");
         return res.redirect("back");
       }
     } else {
+      req.flash("alert", "Sign In First");
       return res.redirect("/users/sign-in");
     }
   } catch (err) {
@@ -35,6 +38,7 @@ module.exports.destroy = async function (req, res) {
     if (comment.user == req.user.id) {
       let postId = comment.post;
       comment.remove();
+      req.flash("success", "Deleted");
 
       await Post.findByIdAndUpdate(postId, {
         $pull: { comments: req.params.id },

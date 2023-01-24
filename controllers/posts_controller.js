@@ -8,8 +8,10 @@ module.exports.createPost = async function (req, res) {
         content: req.body.content,
         user: req.user._id,
       });
+      req.flash("sucess", "Posted");
       return res.redirect("/");
     } else {
+      req.flash("alert", "Sign In First");
       return res.redirect("/users/sign-in");
     }
   } catch (err) {
@@ -23,7 +25,7 @@ module.exports.destroy = async function (req, res) {
     // .id means converting the object id into string
     if (post.user == req.user.id) {
       post.remove();
-
+      req.flash("success", "Deleted");
       Comment.deleteMany({ post: req.params.id });
       return res.redirect("back");
     } else {

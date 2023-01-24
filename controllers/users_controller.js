@@ -33,14 +33,17 @@ module.exports.signIn = function (req, res) {
 module.exports.create = async function (req, res) {
   try {
     if (req.body.password != req.body.confirm_password) {
+      req.flash("error", "Password Mismatched");
       return res.redirect("back");
     }
 
     let user = await User.findOne({ email: req.body.email });
     if (!user) {
       await User.create(req.body);
+      req.flash("success", "Sign Up Successfully");
       return res.redirect("/users/sign-in");
     } else {
+      req.flash("error", "User Already Present");
       return res.redirect("back");
     }
   } catch (err) {
@@ -53,9 +56,11 @@ module.exports.update = async function (req, res) {
   try {
     if (req.user.id == req.params.id) {
       await User.findByIdAndUpdate(req.params.id, req.body);
+      req.flash("success", "User updated Successfully");
       return res.redirect("back");
     } else {
-      return res.ststus(401).send("Unauthorized");
+      req.flash("error", "Unauthorized User");
+      return res.redirect("back");
     }
   } catch (err) {
     console.log("Error", err);

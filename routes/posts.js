@@ -5,7 +5,7 @@ const postsController = require("../controllers/posts_controller");
 
 router.post(
   "/create-post",
-  //   passport.checkAuthentication,
+  passport.checkAuthentication,
   postsController.createPost
 );
 
