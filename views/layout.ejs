@@ -5,11 +5,14 @@
     <link rel="stylesheet" href="/css/footer.css" />
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/home.css" />
-    <%- style %>
+    <!-- <%- style %> -->
   </head>
 
   <body>
-    <%- include('_header'); %>
+    <%- include('_header'); %> <%if(flash.success && flash.success.length>0){%>
+
+    <h7><%=flash.success %></h7>
+    <%} %>
     <div id="main-containor"><%- body %></div>
     <%- include('_footer'); %> <%- script %>
   </body>

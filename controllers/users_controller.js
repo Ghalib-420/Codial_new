@@ -1,13 +1,10 @@
 const User = require("../models/user");
 
-module.exports.profile = function (req, res) {
-  User.findById(req.params.id, function (err, user) {
-    //TODO handle error
-
-    return res.render("user_profile", {
-      title: "User Profile",
-      profile_user: user,
-    });
+module.exports.profile = async function (req, res) {
+  let user = await User.findById(req.params.id);
+  return res.render("user_profile", {
+    title: "User Profile",
+    profile_user: user,
   });
 };
 
@@ -33,39 +30,49 @@ module.exports.signIn = function (req, res) {
 };
 
 // get the sign up data
-module.exports.create = function (req, res) {
-  if (req.body.password != req.body.confirm_password) {
-    return res.redirect("back");
-  }
-
-  User.findOne({ email: req.body.email }, function (err, user) {
-    if (err) {
-      console.log("error in finding user in signing up");
-      return;
+module.exports.create = async function (req, res) {
+  try {
+    if (req.body.password != req.body.confirm_password) {
+      return res.redirect("back");
     }
 
+    let user = await User.findOne({ email: req.body.email });
     if (!user) {
-      User.create(req.body, function (err, user) {
-        if (err) {
-          console.log("error in creating user while signing up");
-          return;
-        }
-
-        return res.redirect("/users/sign-in");
-      });
+      await User.create(req.body);
+      return res.redirect("/users/sign-in");
     } else {
       return res.redirect("back");
     }
-  });
+  } catch (err) {
+    console.log("Error", err);
+    return res.redirect("back");
+  }
+};
+//Updating the user info
+module.exports.update = async function (req, res) {
+  try {
+    if (req.user.id == req.params.id) {
+      await User.findByIdAndUpdate(req.params.id, req.body);
+      return res.redirect("back");
+    } else {
+      return res.ststus(401).send("Unauthorized");
+    }
+  } catch (err) {
+    console.log("Error", err);
+    return res.redirect("back");
+  }
 };
 
 // sign in and create a session for the user
 module.exports.createSession = function (req, res) {
+  req.flash("success", "Logged In Successfully");
   return res.redirect("/");
 };
 
+// Sign out Or Destroying Session
 module.exports.destroySession = function (req, res) {
   req.logout();
+  req.flash("success", "Logged Out Successfully");
 
   return res.redirect("/");
 };

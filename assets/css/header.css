@@ -28,3 +28,8 @@ li a {
   margin-top: 4px;
   color: gray;
 }
+
+#heading a {
+  color: gray;
+  text-decoration: none;
+}
