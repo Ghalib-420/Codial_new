@@ -1,0 +1,28 @@
+<div class="posts">
+  <ul>
+    <% for(post of posts){ %>
+    <li>
+      <p id="content">
+        <% if(locals.user && locals.user.id == post.user.id){ %>
+        <small>
+          <a href="/post/destroy/<%= post.id %>">X </a>
+        </small>
+
+        <% } %> <%=post.content %><br />
+        <small id="date"><%=post.user.name %></small>
+      </p>
+
+      <div class="post-comment">
+        <form
+          action="/comment/create/?id=<%=post._id %>"
+          method="POST"
+          required>
+          <input id="cmt" name="content" />
+          <input type="submit" value="post" />
+        </form>
+      </div>
+      <%- include('_comment')-%>
+    </li>
+    <% } %>
+  </ul>
+</div>
