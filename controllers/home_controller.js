@@ -1,6 +1,7 @@
 const { populate } = require("../models/post");
 const Post = require("../models/post");
 // const Comment = require("../models/comment");
+const User = require("../models/user");
 
 module.exports.home = function (req, res) {
   // Post.find({}, function (err, posts) {
@@ -24,15 +25,16 @@ module.exports.home = function (req, res) {
       },
     })
     .exec(function (err, posts) {
-      if (err) {
+      //TODO handle error
+
+      User.find({}, function (err, users) {
+        // TODO handle error
+
         return res.render("home", {
           title: "Home",
-          post: [],
+          posts: posts,
+          all_users: users,
         });
-      }
-      return res.render("home", {
-        title: "Home",
-        posts: posts,
       });
     });
 };
