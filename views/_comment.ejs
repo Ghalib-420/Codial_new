@@ -1,20 +1,12 @@
-<div class="post-comment-list">
-  <ul id="post-comment-<%=post._id %>">
-    <% for(comment of post.comments){ %>
+<li>
+  <p>
+    <% if(locals.user && locals.user.id == comment.user.id){ %>
+    <small>
+      <a href="/comment/destroy/<%= comment.id %>">X </a>
+    </small>
 
-    <li>
-      <p>
-        <% if(locals.user && locals.user.id == comment.user.id){ %>
-        <small>
-          <a href="/comment/destroy/<%= comment.id %>">X </a>
-        </small>
-
-        <% } %> <%= comment.content %>
-      </p>
-      <br />
-      <small> <%= comment.user.name %> </small>
-    </li>
-
-    <% } %>
-  </ul>
-</div>
+    <% } %> <%= comment.content %>
+  </p>
+  <br />
+  <small> <%= comment.user.name %> </small>
+</li>
