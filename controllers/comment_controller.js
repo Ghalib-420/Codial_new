@@ -26,7 +26,7 @@ module.exports.createComment = async function (req, res) {
       return res.redirect("/users/sign-in");
     }
   } catch (err) {
-    consile.log("Error", err);
+    console.log("Error", err);
     return res.redirect("back");
   }
 };
@@ -43,6 +43,18 @@ module.exports.destroy = async function (req, res) {
       await Post.findByIdAndUpdate(postId, {
         $pull: { comments: req.params.id },
       });
+
+      // if (req.xhr) {
+      //   // console.log("xhr call");
+      //   return res.status(200).json({
+      //     data: {
+      //       comment_id: req.params.id,
+      //     },
+      //     message: "Comment Deleted",
+      //     type: "success",
+      //   });
+      // }
+
       return res.redirect("/");
     } else {
       return res.redirect("/");

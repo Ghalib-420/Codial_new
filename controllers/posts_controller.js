@@ -14,9 +14,10 @@ module.exports.createPost = async function (req, res) {
           post: post,
         },
         massage: "Post created",
+        type: "success",
       });
     }
-    req.flash("sucess", "Posted");
+    // req.flash("sucess", "Posted");
     return res.redirect("/");
 
     // req.flash("alert", "Sign In First");
@@ -32,14 +33,17 @@ module.exports.destroy = async function (req, res) {
     // .id means converting the object id into string
     if (post.user == req.user.id) {
       post.remove();
-      req.flash("success", "Deleted");
+      // req.flash("success", "Deleted");
       await Comment.deleteMany({ post: req.params.id });
 
       if (req.xhr) {
+        // console.log("xhr call");
         return res.status(200).json({
           data: {
             post_id: req.params.id,
           },
+          massage: "Post Deleted",
+          type: "success",
         });
       }
 

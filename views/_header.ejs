@@ -5,6 +5,9 @@
     <div id="list">
       <ul>
         <% if (locals.user){ %>
+        <!-- <li>
+          <a href="/users/profile/<%= user.id %>"> <img src="" alt="" /></a>
+        </li> -->
         <li>
           <a href="/users/profile/<%= user.id %>"> <%= user.name %> </a>
         </li>

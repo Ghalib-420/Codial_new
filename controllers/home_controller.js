@@ -16,7 +16,7 @@ module.exports.home = async function (req, res) {
         },
       });
 
-    let users = await User.find({});
+    let users = await User.find({}).sort("-createdAt");
 
     return res.render("home", {
       title: "Home",

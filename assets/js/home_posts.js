@@ -69,5 +69,49 @@
     });
   };
 
+  // let deleteComment = function (deleteLink) {
+  //   $(deleteLink).click(function (e) {
+  //     e.preventDefault();
+
+  //     $.ajax({
+  //       type: "get",
+  //       url: $(deleteLink).prop("href"),
+  //       success: function (data) {
+  //         $(`#comment-list-${data.data.comment_id}`).removed();
+  //         // req.flash("success", "Deleted");
+  //       },
+  //       error: function (error) {
+  //         console.log(error.responseText);
+  //       },
+  //     });
+  //   });
+  // };
+
+  // using Noty
+
+  // $(function () {
+  //   let callNoty = (message, type) => {
+  //     new Noty({
+  //       theme: "relax",
+  //       text: message,
+  //       type: type,
+  //       layout: "topRight",
+  //       timeout: 1500,
+  //     }).show();
+
+  //     new Noty({
+  //       theme: "relax",
+  //       text: "Error",
+  //       type: "error",
+  //       layout: "topRight",
+  //       timeout: 1500,
+  //       animation: {
+  //         open: "animated bounceInRight",
+  //         close: "animated bounceOutRight", // Animate.css class names
+  //       },
+  //     }).show();
+  //   };
+  // });
+
   createPost();
 }
