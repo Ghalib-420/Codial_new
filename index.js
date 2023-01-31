@@ -12,6 +12,7 @@ const MongoStore = require("connect-mongo")(session);
 const flash = require("connect-flash");
 const customMware = require("./config/middleware");
 const passportJWT = require("./config/passport-jwt-strategy");
+const passportGoogle = require("./config/passport-google-oauth-strategy");
 
 app.use(express.urlencoded());
 
