@@ -1,7 +1,8 @@
 const Comment = require("../models/comment");
 const Post = require("../models/post");
 const commentMailer = require("../mailers/comment_mailer");
-
+const queue = require("../config/kue");
+const commentEmailWorker = require("../workers/comment_email_worker");
 module.exports.createComment = async function (req, res) {
   try {
     if (req.isAuthenticated()) {
@@ -17,7 +18,23 @@ module.exports.createComment = async function (req, res) {
         post.comments.push(cmt);
         post.save();
         cmt = await cmt.populate("user", "name email").execPopulate();
-        commentMailer.newComment(cmt);
+        // commentMailer.newComment(cmt);
+        let job = queue.create("emails", cmt).save(function (err) {
+          if (err) {
+            console.log("Error in sending to the queue", err);
+            return;
+          }
+          console.log("job enqueued", job.id);
+        });
+
+        // let job = await queueMicrotask
+        //   .create("emails", cmt)
+        //   .save(function (err) {
+        //     if (err) {
+        //       console.log("Error in creating a queue", err);
+        //     }
+        //     console.log(job.id);
+        //   });
         req.flash("success", "Posted");
         return res.redirect("/");
       } else {
